@@ -20,12 +20,12 @@ import {
 //  FIREBASE CONFIG — replace values below
 // ══════════════════════════════
 const firebaseConfig = {
-  apiKey:            "REPLACE_WITH_YOUR_API_KEY",
-  authDomain:        "REPLACE_WITH_YOUR_AUTH_DOMAIN",
-  projectId:         "REPLACE_WITH_YOUR_PROJECT_ID",
-  storageBucket:     "REPLACE_WITH_YOUR_STORAGE_BUCKET",
-  messagingSenderId: "REPLACE_WITH_YOUR_SENDER_ID",
-  appId:             "REPLACE_WITH_YOUR_APP_ID"
+  apiKey: "AIzaSyCruBTt8OVlwSmdu0RwC0pWtE4eeeS115s",
+  authDomain: "blushing-blooms.firebaseapp.com",
+  projectId: "blushing-blooms",
+  storageBucket: "blushing-blooms.firebasestorage.app",
+  messagingSenderId: "189548277099",
+  appId: "1:189548277099:web:1697152b9000ae0f13f02e"
 };
 
 const app  = initializeApp(firebaseConfig);
