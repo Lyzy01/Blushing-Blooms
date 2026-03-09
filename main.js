@@ -264,9 +264,9 @@ window.handleOverlayClick = function(e) {
   if (e.target === document.getElementById("admin-overlay")) closeAdmin();
 };
 
-/* ── SECRET KEYBOARD SHORTCUT: Ctrl + Shift + B ── */
+/* ── SECRET KEYBOARD SHORTCUT: Ctrl + Shift + F ── */
 document.addEventListener("keydown", (e) => {
-  if (e.ctrlKey && e.shiftKey && e.key === "B") {
+  if (e.ctrlKey && e.shiftKey && e.key === "F") {
     e.preventDefault();
     openAdmin();
   }
