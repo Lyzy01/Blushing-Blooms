@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blushing Blooms — Flowers for Every Special Moment</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- 🔥 Firebase (ES Module — must be type="module") -->
+  <script type="module" src="firebase.js"></script>
+</head>
+<body>
+
+
+<!-- ══════════════════════════════════════════
+     FLOATING PETALS BACKGROUND
+══════════════════════════════════════════ -->
+<div class="petals-bg" id="petals-bg"></div>
+
+<!-- ══════════════════════════════════════════
+     NAVIGATION
+══════════════════════════════════════════ -->
+<nav id="main-nav">
+  <a href="#" class="nav-brand">
+    <span class="nav-brand-icon">✿</span>
+    <span class="nav-brand-text">Blushing Blooms</span>
+  </a>
+  <div class="nav-links">
+    <a href="#products">Shop</a>
+    <a href="#about">About</a>
+    <a href="#order">Order</a>
+    <a href="https://www.facebook.com/profile.php?id=61585046258862" target="_blank" class="nav-fb">
+      <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      Facebook
+    </a>
+  </div>
+  <!-- Hamburger for mobile -->
+  <button id="hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div id="mobile-menu">
+  <a href="#products" onclick="closeMobileMenu()">Shop</a>
+  <a href="#about" onclick="closeMobileMenu()">About</a>
+  <a href="#order" onclick="closeMobileMenu()">Order</a>
+  <a href="https://www.facebook.com/profile.php?id=61585046258862" target="_blank" class="mobile-menu-fb" onclick="closeMobileMenu()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+    Facebook
+  </a>
+</div>
+
+<!-- ══════════════════════════════════════════
+     HERO
+══════════════════════════════════════════ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-decor hero-decor-1">✿</div>
+  <div class="hero-decor hero-decor-2">❀</div>
+  <div class="hero-content">
+    <span class="hero-badge">🌸 Flowers for every special moment</span>
+    <h1 class="hero-title">
+      Where every bloom<br><em>tells a story</em>
+    </h1>
+    <p class="hero-sub">
+      Handcrafted floral arrangements made with love for weddings,<br>
+      birthdays, anniversaries & every milestone worth celebrating.
+    </p>
+    <div class="hero-location">
+      <span class="hero-location-pin">📍</span>
+      <span>Serving <strong>Angalan, Tugbok, Davao City</strong> · Philippines</span>
+    </div>
+    <div class="hero-ctas">
+      <a href="#products" class="btn-primary">Browse Arrangements</a>
+      <a href="https://www.facebook.com/profile.php?id=61585046258862" target="_blank" class="btn-outline">DM to Order</a>
+    </div>
+  </div>
+  <div class="hero-scroll-hint">Scroll</div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     MARQUEE STRIP
+══════════════════════════════════════════ -->
+<div class="marquee-strip">
+  <div class="marquee-track" id="marquee-track"></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PRODUCTS
+══════════════════════════════════════════ -->
+<section id="products">
+  <div class="section-header">
+    <span class="section-label">Our Collection</span>
+    <h2 class="section-title">Fresh <em>Arrangements</em></h2>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="filter-tabs" id="filter-tabs">
+    <button class="filter-tab active" data-cat="all"><span>All</span></button>
+    <button class="filter-tab" data-cat="bouquet"><span>Bouquets</span></button>
+    <button class="filter-tab" data-cat="arrangement"><span>Arrangements</span></button>
+    <button class="filter-tab" data-cat="gift"><span>Gift Sets</span></button>
+    <button class="filter-tab" data-cat="event"><span>Event Florals</span></button>
+  </div>
+
+  <div class="products-grid" id="products-grid">
+    <div class="no-products">
+      <div class="big-icon">🌷</div>
+      <p>Loading beautiful blooms…</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     ABOUT
+══════════════════════════════════════════ -->
+<section id="about" style="padding:100px 40px;">
+  <div style="max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center;">
+    <div class="about-visual">
+      <div class="about-frame">🌹
+        <div class="about-frame-accent"></div>
+      </div>
+      <div class="about-tag" style="position:absolute; top:24px; left:24px; background:white; padding:16px 20px; border-radius:14px; box-shadow:0 8px 24px rgba(139,58,82,0.12);">
+        <div class="about-tag-num">✿</div>
+        <div class="about-tag-lbl">Made with love</div>
+      </div>
+    </div>
+    <div class="about-text">
+      <div class="section-header" style="text-align:left;">
+        <span class="section-label">Our Story</span>
+        <h2 class="section-title">A small shop with a <em>big heart</em></h2>
+        <div class="section-divider" style="margin:18px 0 0;"></div>
+      </div>
+      <div class="about-body">
+        <p>Blushing Blooms was born from a passion for bringing beauty and joy into people's lives through thoughtfully crafted floral arrangements.</p>
+        <p>Every bouquet we create is made with fresh, hand-selected flowers — designed to capture exactly the emotion you want to express.</p>
+        <p class="about-location-note">
+          📍 Based in <strong>Angalan, Tugbok, Davao City</strong>, Philippines.<br>
+          <em>Currently available for local pickup & delivery within Davao City only.</em>
+        </p>
+      </div>
+      <div class="about-features">
+        <div class="about-feat">
+          <div class="about-feat-icon">💐</div>
+          <div class="about-feat-text"><strong>Fresh Daily</strong>Hand-selected blooms</div>
+        </div>
+        <div class="about-feat">
+          <div class="about-feat-icon">🎁</div>
+          <div class="about-feat-text"><strong>Custom Orders</strong>Any occasion, any style</div>
+        </div>
+        <div class="about-feat">
+          <div class="about-feat-icon">💌</div>
+          <div class="about-feat-text"><strong>DM to Order</strong>Fast & easy on Facebook</div>
+        </div>
+        <div class="about-feat">
+          <div class="about-feat-icon">📍</div>
+          <div class="about-feat-text"><strong>Davao City Only</strong>Angalan, Tugbok area</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     ORDER CTA
+══════════════════════════════════════════ -->
+<section id="order">
+  <div class="section-header">
+    <span class="section-label">How to Order</span>
+    <h2 class="section-title">Ready to <em>order?</em></h2>
+    <div class="section-divider"></div>
+  </div>
+  <p class="order-text">Ordering is simple — just visit our Facebook page and send us a message! We'll help you find the perfect arrangement for your occasion.</p>
+
+  <div class="order-location-badge">
+    <span>📍</span>
+    <div>
+      <strong>Available in Davao City only</strong>
+      <span>Angalan, Tugbok, Davao City, Philippines</span>
+    </div>
+  </div>
+
+  <div class="order-steps">
+    <div class="order-step">
+      <div class="order-step-num">1</div>
+      <div class="order-step-text">Browse our collection</div>
+    </div>
+    <div class="order-step">
+      <div class="order-step-num">2</div>
+      <div class="order-step-text">Message us on Facebook</div>
+    </div>
+    <div class="order-step">
+      <div class="order-step-num">3</div>
+      <div class="order-step-text">Confirm & arrange pickup</div>
+    </div>
+    <div class="order-step">
+      <div class="order-step-num">4</div>
+      <div class="order-step-text">Enjoy your blooms! 🌸</div>
+    </div>
+  </div>
+
+  <a href="https://www.facebook.com/profile.php?id=61585046258862" target="_blank" class="btn-fb-large">
+    <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+    Message Us on Facebook
+  </a>
+</section>
+
+<!-- ══════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════ -->
+<footer>
+  <div class="footer-brand">Blushing Blooms</div>
+  <div class="footer-tagline">Flowers for every special moment</div>
+  <div class="footer-location">📍 Angalan, Tugbok, Davao City, Philippines</div>
+  <div class="footer-links">
+    <a href="#products">Shop</a>
+    <a href="#about">About</a>
+    <a href="#order">Order</a>
+    <a href="https://www.facebook.com/profile.php?id=61585046258862" target="_blank">Facebook</a>
+  </div>
+  <div class="footer-copy">© 2026 Blushing Blooms · All Rights Reserved · Davao City, Philippines</div>
+</footer>
+
+<!-- ══════════════════════════════════════════
+     HIDDEN ADMIN TRIGGER
+     (tiny invisible button at bottom-left)
+══════════════════════════════════════════ -->
+<button id="admin-trigger" title="" onclick="openAdmin()">🌿</button>
+
+<!-- ══════════════════════════════════════════
+     ADMIN OVERLAY
+══════════════════════════════════════════ -->
+<div id="admin-overlay" onclick="handleOverlayClick(event)">
+  <div id="admin-panel">
+
+    <!-- ── HEADER ── -->
+    <div class="panel-header">
+      <div class="panel-title">🌸 Blushing Blooms Admin</div>
+      <button class="panel-close" onclick="closeAdmin()">✕</button>
+    </div>
+
+    <div class="panel-body">
+
+      <!-- LOGIN SCREEN -->
+      <div id="admin-login-screen">
+        <div class="login-icon">🔐</div>
+        <div class="login-title">Admin Access</div>
+        <div class="login-sub">Enter your credentials to manage the shop</div>
+        <div class="login-form">
+          <div>
+            <label class="form-label">Username / Email</label>
+            <input type="email" id="a-user" placeholder="admin email" autocomplete="off" spellcheck="false">
+          </div>
+          <div>
+            <label class="form-label">Password</label>
+            <input type="password" id="a-pass" placeholder="password" onkeydown="if(event.key==='Enter') doAdminLogin()">
+          </div>
+          <button onclick="doAdminLogin()">Sign In</button>
+          <div id="login-err"></div>
+        </div>
+      </div>
+
+      <!-- DASHBOARD -->
+      <div id="admin-dashboard">
+
+        <!-- ADD PRODUCT -->
+        <div>
+          <div class="dash-section-title">➕ Add New Product</div>
+          <div class="add-form">
+            <div class="form-grid">
+              <div>
+                <label class="form-label">Product Name *</label>
+                <input class="form-input" id="p-name" type="text" placeholder="e.g. Sunset Bouquet">
+              </div>
+              <div>
+                <label class="form-label">Price *</label>
+                <input class="form-input" id="p-price" type="text" placeholder="e.g. ₱350">
+              </div>
+              <div class="form-full">
+                <label class="form-label">Description</label>
+                <input class="form-input" id="p-desc" type="text" placeholder="Short description of this arrangement...">
+              </div>
+              <div>
+                <label class="form-label">Icon / Emoji</label>
+                <input class="form-input" id="p-icon" type="text" placeholder="🌹" maxlength="4">
+              </div>
+              <div>
+                <label class="form-label">Category</label>
+                <select class="form-input" id="p-cat">
+                  <option value="bouquet">Bouquet</option>
+                  <option value="arrangement">Arrangement</option>
+                  <option value="gift">Gift Set</option>
+                  <option value="event">Event Florals</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-check">
+              <input type="checkbox" id="p-stock" checked>
+              <label for="p-stock">✅ In Stock (uncheck = Out of Stock)</label>
+            </div>
+            <button class="btn-add" onclick="addProduct()">+ Add Product</button>
+          </div>
+        </div>
+
+        <!-- PRODUCT LIST -->
+        <div>
+          <div class="dash-section-title">📦 Manage Products</div>
+          <div class="admin-product-list" id="admin-product-list">
+            <p style="font-family:'Lora',serif; color:var(--muted); font-style:italic;">No products yet.</p>
+          </div>
+        </div>
+
+        <button class="btn-logout" onclick="doAdminLogout()">🚪 Sign Out</button>
+      </div>
+
+    </div><!-- /panel-body -->
+  </div><!-- /admin-panel -->
+</div><!-- /admin-overlay -->
+
+<!-- EDIT MODAL -->
+<div id="edit-modal">
+  <div class="edit-box">
+    <div class="edit-title">✏️ Edit Product</div>
+    <input type="hidden" id="edit-id">
+    <div class="form-grid">
+      <div>
+        <label class="form-label">Name</label>
+        <input class="form-input" id="edit-name" type="text">
+      </div>
+      <div>
+        <label class="form-label">Price</label>
+        <input class="form-input" id="edit-price" type="text">
+      </div>
+      <div class="form-full">
+        <label class="form-label">Description</label>
+        <input class="form-input" id="edit-desc" type="text">
+      </div>
+      <div>
+        <label class="form-label">Icon / Emoji</label>
+        <input class="form-input" id="edit-icon" type="text" maxlength="4">
+      </div>
+      <div>
+        <label class="form-label">Category</label>
+        <select class="form-input" id="edit-cat">
+          <option value="bouquet">Bouquet</option>
+          <option value="arrangement">Arrangement</option>
+          <option value="gift">Gift Set</option>
+          <option value="event">Event Florals</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-check">
+      <input type="checkbox" id="edit-stock">
+      <label for="edit-stock">In Stock</label>
+    </div>
+    <div class="edit-actions">
+      <button class="btn-cancel" onclick="closeEdit()">Cancel</button>
+      <button class="btn-save" onclick="saveEdit()">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- ══════════════════════════════════════════
+     SCRIPTS
+══════════════════════════════════════════ -->
+
+  <!-- UI, Animations & Interactions -->
+  <script src="main.js"></script>
+
+</body>
+</html>
