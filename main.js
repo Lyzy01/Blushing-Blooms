@@ -252,10 +252,9 @@ setInterval(_checkRefreshAdmin, 1500);
 window.openAdmin = function() {
   const ov = document.getElementById("admin-overlay");
   ov.classList.add("open");
-  // Pop-in animation
   const panel = document.getElementById("admin-panel");
   panel.style.animation = "none";
-  panel.offsetHeight; // reflow
+  panel.offsetHeight;
   panel.style.animation = "panelPop .45s cubic-bezier(.34,1.56,.64,1) both";
 };
 window.closeAdmin = function() {
@@ -264,6 +263,26 @@ window.closeAdmin = function() {
 window.handleOverlayClick = function(e) {
   if (e.target === document.getElementById("admin-overlay")) closeAdmin();
 };
+
+/* ── SECRET KEYBOARD SHORTCUT: Ctrl + Shift + B ── */
+document.addEventListener("keydown", (e) => {
+  if (e.ctrlKey && e.shiftKey && e.key === "B") {
+    e.preventDefault();
+    openAdmin();
+  }
+});
+
+/* ── SECRET LOGO TAP: click brand logo 5 times fast ── */
+let _logoTaps = 0, _logoTimer;
+document.addEventListener("click", (e) => {
+  if (e.target.closest(".nav-brand")) {
+    _logoTaps++;
+    clearTimeout(_logoTimer);
+    if (_logoTaps >= 5) { _logoTaps = 0; openAdmin(); }
+    _logoTimer = setTimeout(() => { _logoTaps = 0; }, 1500);
+  }
+});
+
 
 /* ════════════════════════════════════════
    TOAST — with icon support
