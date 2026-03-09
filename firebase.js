@@ -3,12 +3,8 @@
    firebase.js  (loaded as type="module")
 
    🔥 SETUP:
-   1. Replace the firebaseConfig values below with your
-      own from Firebase Console → Project Settings → Apps
-   2. Replace _ae value with btoa("youremail@example.com")
-      Run btoa("your@email.com") in browser console to get it
-
-   📦 Uses: Firestore Database (NOT Realtime Database)
+   Replace the firebaseConfig values below with your
+   own from Firebase Console → Project Settings → Apps
    ================================================ */
 
 import { initializeApp }
@@ -21,26 +17,35 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 // ══════════════════════════════
-//  FIREBASE CONFIG
-//  Replace all values below ↓
+//  FIREBASE CONFIG — replace values below
 // ══════════════════════════════
 const firebaseConfig = {
-  apiKey: "AIzaSyCruBTt8OVlwSmdu0RwC0pWtE4eeeS115s",
-  authDomain: "blushing-blooms.firebaseapp.com",
-  projectId: "blushing-blooms",
-  storageBucket: "blushing-blooms.firebasestorage.app",
-  messagingSenderId: "189548277099",
-  appId: "1:189548277099:web:1697152b9000ae0f13f02e"
+  apiKey:            "REPLACE_WITH_YOUR_API_KEY",
+  authDomain:        "REPLACE_WITH_YOUR_AUTH_DOMAIN",
+  projectId:         "REPLACE_WITH_YOUR_PROJECT_ID",
+  storageBucket:     "REPLACE_WITH_YOUR_STORAGE_BUCKET",
+  messagingSenderId: "REPLACE_WITH_YOUR_SENDER_ID",
+  appId:             "REPLACE_WITH_YOUR_APP_ID"
 };
 
 const app  = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db   = getFirestore(app);
 
-/* ─── Obfuscated admin email (base64) ─── */
-/* To generate: open browser console and run:  btoa("youremail@gmail.com") */
-/* Then paste the result inside atob("...") below                           */
-const _ae = atob("YWRtaW5AYmx1c2hpbmdibG9vbXMuY29t"); // admin@blushingblooms.com
+// ══════════════════════════════
+//  OBFUSCATED CREDENTIALS
+//  Multi-layer encoded — not plain text in source
+// ══════════════════════════════
+const _x = [
+  'WW14MWMy','aHBibWRp','Ykc5dmJY','TkFZV1J0','YVc0dVky','OXQ='
+].join('');
+const _y = [
+  'WW14MWMy','aHBibWRp','Ykc5dmJY','TXlNREky'
+].join('');
+
+const _d = s => atob(atob(s));
+const _ae = _d(_x); // resolves at runtime only
+const _ap = _d(_y); // resolves at runtime only
 
 // ══════════════════════════════
 //  REAL-TIME PRODUCT LISTENER
@@ -77,14 +82,11 @@ window.doAdminLogin = async () => {
   const errEl = document.getElementById("login-err");
   errEl.textContent = "";
   try {
-    if (u.toLowerCase() !== _ae.toLowerCase()) throw new Error("Invalid credentials.");
-    await signInWithEmailAndPassword(auth, _ae, p);
+    if (u.toLowerCase() !== _ae.toLowerCase()) throw new Error("auth/invalid-credential");
+    if (p !== _ap) throw new Error("auth/invalid-credential");
+    await signInWithEmailAndPassword(auth, _ae, _ap);
   } catch(e) {
-    errEl.textContent = "❌ " + (
-      e.code === "auth/wrong-password" || e.code === "auth/user-not-found" || e.code === "auth/invalid-credential"
-        ? "Wrong username or password."
-        : e.message
-    );
+    errEl.textContent = "❌ Wrong username or password.";
   }
 };
 
@@ -105,11 +107,11 @@ window.addProduct = async () => {
 
   await addDoc(productsCol, { name, price, desc, icon: icon || "🌸", stock, cat });
 
-  document.getElementById("p-name").value  = "";
-  document.getElementById("p-price").value = "";
-  document.getElementById("p-desc").value  = "";
-  document.getElementById("p-icon").value  = "";
-  document.getElementById("p-stock").checked = true;
+  document.getElementById("p-name").value     = "";
+  document.getElementById("p-price").value    = "";
+  document.getElementById("p-desc").value     = "";
+  document.getElementById("p-icon").value     = "";
+  document.getElementById("p-stock").checked  = true;
   showToast("✅ Product added!");
 };
 
