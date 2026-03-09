@@ -255,17 +255,9 @@ window.openAdmin = function() {
   const login = document.getElementById("admin-login-screen");
   const dash  = document.getElementById("admin-dashboard");
 
-  // Force panel visible
   panel.style.display = "flex";
-
-  // Show login or dashboard depending on auth state
-  if (!window._adminUser) {
-    login.style.display = "flex";
-    dash.style.display  = "none";
-  } else {
-    login.style.display = "none";
-    dash.style.display  = "flex";
-  }
+  login.style.display = window._adminUser ? "none" : "flex";
+  dash.style.display  = window._adminUser ? "flex" : "none";
 
   ov.classList.add("open");
   panel.style.animation = "none";
