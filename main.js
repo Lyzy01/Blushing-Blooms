@@ -250,9 +250,24 @@ setInterval(_checkRefreshAdmin, 1500);
    ADMIN PANEL OPEN / CLOSE
 ════════════════════════════════════════ */
 window.openAdmin = function() {
-  const ov = document.getElementById("admin-overlay");
-  ov.classList.add("open");
+  const ov    = document.getElementById("admin-overlay");
   const panel = document.getElementById("admin-panel");
+  const login = document.getElementById("admin-login-screen");
+  const dash  = document.getElementById("admin-dashboard");
+
+  // Force panel visible
+  panel.style.display = "flex";
+
+  // Show login or dashboard depending on auth state
+  if (!window._adminUser) {
+    login.style.display = "flex";
+    dash.style.display  = "none";
+  } else {
+    login.style.display = "none";
+    dash.style.display  = "flex";
+  }
+
+  ov.classList.add("open");
   panel.style.animation = "none";
   panel.offsetHeight;
   panel.style.animation = "panelPop .45s cubic-bezier(.34,1.56,.64,1) both";
