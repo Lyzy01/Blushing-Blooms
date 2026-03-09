@@ -748,7 +748,7 @@ footer {
   overflow: hidden;
   box-shadow: 0 32px 80px rgba(0,0,0,0.4);
   flex-direction: column;
-  display: none;
+  display: flex;
 }
 
 .panel-header {
@@ -787,15 +787,9 @@ footer {
   min-height: 400px;
 }
 .login-icon { font-size: 48px; margin-bottom: 8px; }
-.login-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 24px; color: var(--deep); text-align: center;
-}
-.login-sub {
-  font-family: 'Lora', serif;
-  font-size: 14px; color: var(--muted); text-align: center;
-}
-.login-form { width: 100%; max-width: 360px; display: flex; flex-direction: column; gap: 12px; }
+.login-title { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--deep); text-align: center; }
+.login-sub   { font-family: 'Lora', serif; font-size: 14px; color: var(--muted); text-align: center; }
+.login-form  { width: 100%; max-width: 360px; display: flex; flex-direction: column; gap: 12px; }
 .login-form input {
   width: 100%; padding: 13px 18px;
   border: 1.5px solid rgba(139,58,82,0.2);
@@ -812,10 +806,7 @@ footer {
   transition: transform .2s; margin-top: 4px;
 }
 .login-form button:hover { transform: translateY(-2px); }
-#login-err {
-  font-family: 'Jost', sans-serif; font-size: 13px;
-  color: #c0392b; text-align: center;
-}
+#login-err { font-family: 'Jost', sans-serif; font-size: 13px; color: #c0392b; text-align: center; }
 
 /* DASHBOARD */
 #admin-dashboard {
@@ -1379,4 +1370,3 @@ select.form-input { appearance: none; cursor: pointer; }
   .order-location-badge { padding: 14px 18px; flex-direction: column; text-align: center; }
   .order-location-badge div { align-items: center; }
 }
-
